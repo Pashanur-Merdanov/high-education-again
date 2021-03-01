@@ -1,0 +1,74 @@
+@media(max-width:580px){
+    .filtration{
+        width: 590px;
+        padding: 20px 0 0 30px;
+    }
+    .filtration fieldset,
+    .filtration .country-list,
+    .filtration .checkbox{
+        width: 100%;
+    }
+    .payment .currency{
+        width: 70%;
+    }
+    .amount .number-fields{
+        width: 70%;
+    }
+    .program-page .program-wrap .find-btn{
+        width: 70%;
+        margin-left: -30px;
+    }
+    .amount .slider{
+        width: 68%;
+    }
+}
+
+@media(min-width:581px) and (max-width:610px){
+    .filtration{
+        width: 620px;
+        padding: 20px 0 0 30px;
+    }
+    .filtration fieldset,
+    .filtration .country-list,
+    .filtration .checkbox{
+        width: 100%;
+    }
+    .payment .currency{
+        width: 70%;
+    }
+    .amount .number-fields{
+        width: 70%;
+    }
+    .program-page .program-wrap .find-btn{
+        width: 70%;
+        margin-left: -30px;
+    }
+    .amount .slider{
+        width: 68%;
+    }
+}
+
+@media(min-width:611px) and (max-width:700px){
+    .filtration{
+        width: 620px;
+        padding: 20px 0 0 30px;
+    }
+    .filtration fieldset,
+    .filtration .country-list,
+    .filtration .checkbox{
+        width: 100%;
+    }
+    .payment .currency{
+        width: 70%;
+    }
+    .amount .number-fields{
+        width: 70%;
+    }
+    .program-page .program-wrap .find-btn{
+        width: 70%;
+        margin-left: -30px;
+    }
+    .amount .slider{
+        width: 68%;
+    }
+}
