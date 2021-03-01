@@ -1,0 +1,241 @@
+{% extends "home/index.html" %}
+{% load static %}
+{% load base_filter %}
+{% block title %}
+    {{ object.title }} | {{ block.super }}
+{% endblock %}
+
+{% block social_headers %}
+    <!-- Facebook share header -->
+    <meta property="og:title" content="{{ object.title }}">
+    <meta property="og:description" content="{{ object.about }}">
+    {% if object.background_image %}
+        <meta property="og:image"
+              content="https://{{ request.get_host }}{{ object.background_image.url }}">
+    {% endif %}
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <!--Twitter header-->
+    <meta name="twitter:card" content="summary_large_image">
+    {% if object.background_image %}
+        <meta name="twitter:image"
+              content="https://{{ request.get_host }}{{ object.background_image.url }}">
+    {% endif %}
+    <meta name="twitter:image:alt" content="{{ object.title }}">
+    <meta name="twitter:creator" content="@azeristudent01"/>
+    <meta name="twitter:site" content="@azeristudent01">
+    <link rel="stylesheet" href="{% static 'costbetween/design.min.css' %}">
+    <link rel="stylesheet" href="{% static 'costbetween/high.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+  
+
+    <script src="./src/js/jquery.min.js"></script>
+    <script src="./src/js/js/min/assets/bootstrap.min.js"></script>
+    <script src="./src/js/js/min/assets/moment.min.js"></script>
+    <script src="./src/js/js/min/assets/bootstrap-datetimepicker.min.js"></script> 
+    <script src="./src/js/js/min/assets/owl.min.js"></script>
+    <script src="./src/js/js/wow.js"></script>
+    <script src="./src/js/js/min/app.min.js"></script>
+
+<link rel="stylesheet" href="./src/css/high.css">
+<link rel="stylesheet" href="./src/css/all.css">
+<link rel="stylesheet" href="./src/css/design.min.css">
+<link rel="stylesheet" href="./src/css/responsive.css">
+
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        window.education_type = Number("{{ object.pk }}");
+        {% if request.GET.country %}
+            window.country = "{{ request.GET.country }}";
+        {% endif %}
+    </script>
+{% endblock %}
+
+{% block base_content %}
+    <div class="program-page {% if not education_list.country %}country_inside{% else %}{% endif %}">
+        <div class="page-cover" style="background-image:url('{{ object.backgound_image.url }}')">
+            <div class="container">
+                <div class="cover-items">
+                    <h1 class="page-title ">{{ object.title }}</h1>
+                    <ol class="breadcrumb ">
+{#                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Ana səhifə</a></li>#}
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">AzeriStudent</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ object.title }}</li>
+                    </ol>
+                    <p class="cover-info ">{{ object.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="program-wrap section-wrap">
+                <h1 class="program-title">{% if not education_list.country %} Axtariş üçün {% else %} {{ education_list.country }} üçün{% endif %}<img src="{% static 'azeristudent/img/right-arrow.png' %}"
+                                                            alt=""><span>{{ education_list.count }}</span> nəticə</h1>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        <form class="filtration">
+                            <h4 class="country-title"><i class="fas fa-map-marker-alt"></i> Ölkələr</h4>
+                            <fieldset class="filter-group checkboxes country-filter" id="country-filter">
+                                <div class="country-list form-select" aria-expanded="false">
+                                    <!-- <div class="checkbox">
+                                        <input type="checkbox" />
+                                        <label>ABŞ</label>
+                                    </div> -->
+                                </div>
+                            </fieldset>
+                            <fieldset class="programmes form-select">
+                                <h4><i class="fas fa-graduation-cap"></i> Universitet proqramı</h4>
+                                <!-- <div class="checkbox">
+                                    <input type="checkbox" />
+                                    <label>Academy proqramı</label>
+                                </div> -->
+                            </fieldset>
+                            <fieldset class="languages form-select">
+                                <h4><i class="fas fa-globe"></i>Dil</h4>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Ingilis dili</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Alman dili</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Rus dili</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Ispan dili</label>
+                                </div>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Fransız dili</label>
+                                </div>
+                    
+                            </fieldset>
+                            <fieldset class="type-of-university form-select">
+                                <h4><i class="fas fa-university"></i>Universitetin tipi</h4>
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <label>Ali Məktəb</label>
+                                </div>
+                            </fieldset>
+                            <fieldset class="payment">
+                                <h4><i class="fas fa-money-bill-wave-alt"></i>Ödəniş aralığı</h4>
+                                <div class="form-group currency">
+                                    <select class="form-control">
+                                        <option>USD</option>
+                                        <option>AZN</option>
+                                        <option>EUR</option>
+                                    </select>
+                                </div>
+                                <div class="amount form-group">
+                                    <div class="number-fields">
+                                        <input type="number" value="0" id="minAmount" name="">
+                                        <input type="number" value="100000" id="maxAmount" name="">
+                                    </div>
+                                    <div class="multi-range-slider">
+                                        <input type="range" id="minAmountRange" min="0" max="100000" value="0" step="500">
+                                        <input type="range" id="maxAmountRange" min="0" max="100000" value="100000" step="500">
+                    
+                                        <div class="slider">
+                                            <div class="track"></div>
+                                            <div class="range"></div>
+                                            <div class="thumb left"></div>
+                                            <div class="thumb right"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <button type="submit" class="btn find-btn search-btn-unique">Axtar</button>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 col-sm-8 col-md-9">
+                        <ul class="program-items">
+                            {% for education in education_list.data %}
+                                <a href="{{ education.get_absolute_url }}">
+                                    <li class="program-item ">
+                                        <div class="program-item-img"
+                                             style="background-image:url({{ education.cover_img.url }})"></div>
+                                        <div class="program-item-info">
+                                            <h2 class="title">{{ education.title }}</h2>
+                                            <ul class="item-detail">
+                                                <li>Ölkə</li>
+                                                <li>{{ education.country.name }}</li>
+                                            </ul>
+                                            <ul class="item-detail">
+                                                <li>Dil</li>
+                                                <li>{% for lang in education.language.all %}{{ lang }}
+                                                    {% if not forloop.last %},{% endif %}{% endfor %}</li>
+                                            </ul>
+                                            {% if education.education_type.pk == 3 %}
+                                                <ul class="item-detail">
+                                                    <li>Yaş məhdudiyyəti</li>
+                                                    <li>{{ education.get_age_restriction_display }}</li>
+                                                </ul>
+                                                <ul class="item-detail">
+                                                    <li>Yaş</li>
+                                                    <li>{{ education.age }}</li>
+                                                </ul>
+                                                <ul class="item-detail">
+                                                    <li>Fəsil</li>
+                                                    <li>{{ education.get_season_display }}</li>
+                                                </ul>
+                                                {% comment %}<ul class="item-detail">
+                                                <li>Proqram</li>
+                                                <li>{{ education.program_language|default:"-" }}</li>
+                                            </ul>{% endcomment %}
+                                            {% elif education.education_type.pk == 2 %}
+                                                <ul class="item-detail">
+                                                    <li>Proqram</li>
+                                                    <li>{% for prog in education.secondary_program.all %}{{ prog }}
+                                                        {% if not forloop.last %},{% endif %}{% endfor %}</li>
+                                                </ul>
+                                                <ul class="item-detail">
+                                                    <li>Məktəbin tipi</li>
+                                                    <li>{% for edu in education.school_type.all %}{{ edu }}
+                                                        {% if not forloop.last %},{% endif %}{% endfor %}</li>
+                                                </ul>
+                                            {% else %}
+                                                <ul class="item-detail">
+                                                    <li>Şəhər</li>
+                                                    <li>{% for city in education.city.all %}{{ city }}
+                                                        {% if not forloop.last %},{% endif %}{% endfor %}</li>
+                                                </ul>
+                                                <ul class="item-detail">
+                                                    <li>Universitet tipi</li>
+                                                    <li>{% for prog in education.univercity_program.all %}{{ prog }}
+                                                        {% if not forloop.last %},{% endif %}{% endfor %}</li>
+                                                </ul>
+                                            {% endif %}
+
+
+                                            <div class="details-link">Daha çox <img
+                                                    src="{% static 'azeristudent/img/right-arrow.png' %}"
+                                                    alt=""></div>
+                                        </div>
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+
+                        {% include "education/partials/pagination.html" with is_paginated=education_list.is_paginated page_obj=education_list.data page_range=education_list.page_range %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-program">
+                <div class="language-course">
+                    {{ object.extra_description|safe }}
+                </div>
+            </div>
+            {% include "partials/do_with_us.html" %}
+        </div>
+    </div>
+    <script src="./src/js/rangeslider.js"></script>
+    <script src="./src/js/main.js"></script>
+    <script src="{% static 'costbetween/script.js' %}"></script>
+{% endblock %}
